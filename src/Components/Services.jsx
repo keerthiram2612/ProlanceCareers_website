@@ -50,8 +50,8 @@ const Services = () => {
     { step: "Consultation", desc: "We understand your needs." },
     { step: "Planning", desc: "We create the roadmap." },
     { step: "Execution", desc: "Our team builds the solution." },
-    { step: "Review & Feedback", desc: "We refine together." },
-    { step: "Delivery & Support", desc: "Launch with confidence." },
+    { step: "Review", desc: "We refine together." },
+    { step: "Delivery", desc: "Launch with confidence." },
   ];
 
   const techStack = [
@@ -71,7 +71,7 @@ const Services = () => {
     <div>
       <Navbar />
       <div style={styles.page}>
-        {/* Hero for Services */}
+        {/* Hero */}
         <motion.div
           style={styles.hero}
           initial={{ opacity: 0, y: -50 }}
@@ -127,14 +127,7 @@ const Services = () => {
         </div>
 
         {/* Why Choose Us */}
-        <motion.h2
-          style={styles.subHeading}
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
-        >
-          💡 Why Choose Us?
-        </motion.h2>
+        <motion.h2 style={styles.subHeading}>💡 Why Choose Us?</motion.h2>
         <div style={styles.whyGrid}>
           {whyChoose.map((reason, i) => (
             <motion.div
@@ -150,39 +143,31 @@ const Services = () => {
           ))}
         </div>
 
-        {/* Our Process */}
-        <motion.h2
-          style={styles.subHeading}
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
-        >
-          ⚡ Our Process
-        </motion.h2>
-        <div style={styles.processContainer}>
+        {/* Our Process - redesigned as small cards */}
+        <motion.h2 style={styles.subHeading}>⚡ Our Process</motion.h2>
+        <div style={styles.processGrid}>
           {processSteps.map((p, i) => (
             <motion.div
               key={i}
-              style={styles.processStep}
-              initial={{ opacity: 0, x: i % 2 === 0 ? -50 : 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: i * 0.2 }}
+              style={styles.processCard}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: i * 0.2 }}
+              whileHover={{
+                scale: 1.08,
+                background: "#4f46e5",
+                color: "#fff",
+              }}
             >
-              <h3>Step {i + 1}: {p.step}</h3>
-              <p>{p.desc}</p>
+              <h3 style={styles.processTitle}>Step {i + 1}</h3>
+              <p style={{ fontWeight: "600" }}>{p.step}</p>
+              <p style={{ fontSize: "14px", opacity: 0.9 }}>{p.desc}</p>
             </motion.div>
           ))}
         </div>
 
         {/* Tech Stack */}
-        <motion.h2
-          style={styles.subHeading}
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
-        >
-          🛠️ Technologies We Use
-        </motion.h2>
+        <motion.h2 style={styles.subHeading}>🛠️ Technologies We Use</motion.h2>
         <div style={styles.techGrid}>
           {techStack.map((tech, i) => (
             <motion.div
@@ -218,11 +203,7 @@ const styles = {
     padding: "60px 20px",
     color: "#fff",
   },
-  heroTitle: {
-    fontSize: "56px",
-    fontWeight: "800",
-    marginBottom: "20px",
-  },
+  heroTitle: { fontSize: "56px", fontWeight: "800", marginBottom: "20px" },
   heroSubtitle: {
     fontSize: "20px",
     fontWeight: "300",
@@ -239,7 +220,6 @@ const styles = {
     textDecoration: "none",
     fontSize: "18px",
     boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
-    transition: "0.3s",
   },
   grid: {
     display: "grid",
@@ -255,11 +235,7 @@ const styles = {
     border: "2px solid rgba(255,255,255,0.2)",
     boxShadow: "0 6px 15px rgba(0,0,0,0.15)",
   },
-  cardTitle: {
-    fontSize: "26px",
-    marginBottom: "20px",
-    fontWeight: "700",
-  },
+  cardTitle: { fontSize: "26px", marginBottom: "20px", fontWeight: "700" },
   list: { listStyle: "none", padding: 0, margin: 0, fontSize: "17px" },
   listItem: { marginBottom: "12px" },
 
@@ -284,21 +260,29 @@ const styles = {
     textAlign: "center",
     fontWeight: "500",
     fontSize: "16px",
-    transition: "0.3s",
   },
 
-  processContainer: {
-    display: "flex",
-    flexDirection: "column",
+  // Redesigned Process Grid
+  processGrid: {
+    display: "grid",
     gap: "25px",
+    gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
     marginBottom: "60px",
   },
-  processStep: {
-    background: "#fff",
-    padding: "20px",
+  processCard: {
+    padding: "25px",
     borderRadius: "15px",
+    background: "#fff",
     border: "1px solid #e5e7eb",
     boxShadow: "0 4px 10px rgba(0,0,0,0.08)",
+    textAlign: "center",
+    transition: "0.3s",
+  },
+  processTitle: {
+    fontSize: "18px",
+    fontWeight: "700",
+    marginBottom: "8px",
+    color: "#4f46e5",
   },
 
   techGrid: {

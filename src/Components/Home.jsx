@@ -5,6 +5,9 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 
 const Home = () => {
+  const leftEmojis = ["💻", "🎨", "🌐"];
+  const rightEmojis = ["🚀", "⚡", "📱", "🔧"];
+
   return (
     <div style={styles.page}>
       {/* Navbar */}
@@ -17,7 +20,44 @@ const Home = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
       >
-        <h1 style={styles.title}>🚀 Prolance Careers</h1>
+        {/* Left Side Emojis */}
+        <div style={styles.emojiLeft}>
+          {leftEmojis.map((emoji, i) => (
+            <motion.div
+              key={i}
+              style={styles.emoji}
+              animate={{ y: [0, -25, 0] }}
+              transition={{
+                duration: 3 + i,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            >
+              {emoji}
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Right Side Emojis */}
+        <div style={styles.emojiRight}>
+          {rightEmojis.map((emoji, i) => (
+            <motion.div
+              key={i}
+              style={styles.emoji}
+              animate={{ y: [0, 25, 0] }}
+              transition={{
+                duration: 3.5 + i,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            >
+              {emoji}
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Hero Content */}
+        <h1 style={styles.title}>🚀Prolance Careers</h1>
         <p style={styles.subtitle}>
           Building <span style={{ fontWeight: "600" }}>Future-Ready Careers</span> in Tech
         </p>
@@ -109,8 +149,35 @@ const styles = {
     padding: "140px 20px",
     background: "linear-gradient(135deg, #4f46e5, #7c3aed)",
     color: "#fff",
+    position: "relative",
+    overflow: "hidden",
   },
-  title: { fontSize: "56px", fontWeight: "800", marginBottom: "20px" },
+  emojiLeft: {
+    position: "absolute",
+    left: "30px",
+    top: "50%",
+    transform: "translateY(-50%)",
+    display: "flex",
+    flexDirection: "column",
+    gap: "25px",
+  },
+  emojiRight: {
+    position: "absolute",
+    right: "30px",
+    top: "50%",
+    transform: "translateY(-50%)",
+    display: "flex",
+    flexDirection: "column",
+    gap: "25px",
+  },
+  emoji: {
+    fontSize: "34px",
+    background: "rgba(255,255,255,0.1)",
+    padding: "12px",
+    borderRadius: "50%",
+    boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
+  },
+  title: { fontSize: "56px", fontWeight: "800", marginBottom: "20px", zIndex: 2, position: "relative" },
   subtitle: {
     fontSize: "22px",
     marginBottom: "35px",
@@ -118,6 +185,8 @@ const styles = {
     marginLeft: "auto",
     marginRight: "auto",
     lineHeight: "1.5",
+    zIndex: 2,
+    position: "relative",
   },
   button: {
     display: "inline-block",
@@ -129,6 +198,8 @@ const styles = {
     textDecoration: "none",
     fontSize: "18px",
     transition: "0.3s",
+    zIndex: 2,
+    position: "relative",
   },
 
   /* Services */
