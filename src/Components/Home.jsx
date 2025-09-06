@@ -57,7 +57,7 @@ const Home = () => {
         </div>
 
         {/* Hero Content */}
-        <h1 style={styles.title}>🚀Prolance Careers</h1>
+        <h1 style={styles.title}>🚀 PROLANCE CAREERS</h1>
         <p style={styles.subtitle}>
           Building <span style={{ fontWeight: "600" }}>Future-Ready Careers</span> in Tech
         </p>
