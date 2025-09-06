@@ -1,8 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  // Handle window resize
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+      if (window.innerWidth >= 768) setMenuOpen(false); // close menu on desktop
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <nav style={styles.navbar}>
@@ -12,18 +23,22 @@ const Navbar = () => {
         <h1 style={styles.logoText}>ProLance Careers</h1>
       </div>
 
-      {/* Desktop Links */}
-      <div style={{ ...styles.links, ...(menuOpen ? styles.showMenu : {}) }}>
-        <Link style={styles.link} to="/">Home</Link>
-        <Link style={styles.link} to="/services">Services</Link>
-        <Link style={styles.link} to="/about">About</Link>
-        <Link style={styles.link} to="/contact">Contact</Link>
-      </div>
+      {/* Desktop / Mobile Links */}
+      {(menuOpen || !isMobile) && (
+        <div style={{ ...styles.links, ...(isMobile ? styles.mobileMenu : {}) }}>
+          <Link style={styles.link} to="/">Home</Link>
+          <Link style={styles.link} to="/services">Services</Link>
+          <Link style={styles.link} to="/about">About</Link>
+          <Link style={styles.link} to="/contact">Contact</Link>
+        </div>
+      )}
 
       {/* Mobile Toggle */}
-      <div style={styles.menuIcon} onClick={() => setMenuOpen(!menuOpen)}>
-        {menuOpen ? "✖" : "☰"}
-      </div>
+      {isMobile && (
+        <div style={styles.menuIcon} onClick={() => setMenuOpen(!menuOpen)}>
+          {menuOpen ? "✖" : "☰"}
+        </div>
+      )}
     </nav>
   );
 };
@@ -33,7 +48,7 @@ const styles = {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: "12px 40px",
+    padding: "12px 20px",
     background: "rgba(255, 255, 255, 0.9)",
     backdropFilter: "blur(12px)",
     boxShadow: "0 4px 15px rgba(0,0,0,0.1)",
@@ -47,8 +62,8 @@ const styles = {
     gap: "12px",
   },
   logoImg: {
-    width: "55px",
-    height: "55px",
+    width: "50px",
+    height: "50px",
     borderRadius: "50%",
     border: "2px solid #4f46e5",
     padding: "4px",
@@ -56,7 +71,7 @@ const styles = {
     boxShadow: "0 4px 12px rgba(79,70,229,0.3)",
   },
   logoText: {
-    fontSize: "22px",
+    fontSize: "20px",
     fontWeight: "800",
     background: "linear-gradient(90deg, #4f46e5, #7c3aed)",
     WebkitBackgroundClip: "text",
@@ -70,21 +85,14 @@ const styles = {
     transition: "all 0.3s ease",
   },
   link: {
-    position: "relative",
     textDecoration: "none",
     color: "#333",
     fontWeight: "600",
-    fontSize: "17px",
-    padding: "8px 0",
-    transition: "color 0.3s ease",
+    fontSize: "16px",
+    position: "relative",
+    padding: "5px 0",
   },
-  menuIcon: {
-    display: "none",
-    fontSize: "28px",
-    cursor: "pointer",
-  },
-  showMenu: {
-    display: "flex",
+  mobileMenu: {
     flexDirection: "column",
     position: "absolute",
     top: "70px",
@@ -94,27 +102,13 @@ const styles = {
     borderRadius: "12px",
     boxShadow: "0 6px 12px rgba(0,0,0,0.15)",
     gap: "15px",
+    width: "200px",
   },
-};
-
-// Add custom hover underline effect
-styles.link["::after"] = {
-  content: "''",
-  position: "absolute",
-  width: "0%",
-  height: "2px",
-  bottom: "-4px",
-  left: "0",
-  background: "linear-gradient(90deg, #4f46e5, #7c3aed)",
-  transition: "width 0.3s ease",
-};
-
-styles.link[":hover"] = {
-  color: "#4f46e5",
-};
-
-styles.link[":hover::after"] = {
-  width: "100%",
+  menuIcon: {
+    display: "block",
+    fontSize: "28px",
+    cursor: "pointer",
+  },
 };
 
 export default Navbar;
