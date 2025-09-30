@@ -26,10 +26,16 @@ const Navbar = () => {
       {/* Desktop / Mobile Links */}
       {(menuOpen || !isMobile) && (
         <div style={{ ...styles.links, ...(isMobile ? styles.mobileMenu : {}) }}>
-          <Link style={styles.link} to="/">Home</Link>
-          <Link style={styles.link} to="/services">Services</Link>
-          <Link style={styles.link} to="/about">About</Link>
-          <Link style={styles.link} to="/contact">Contact</Link>
+          {["Home", "Services", "About", "Projects", "Contact"].map((text, i) => (
+            <Link
+              key={i}
+              to={text === "Home" ? "/" : `/${text.toLowerCase()}`}
+              style={styles.link}
+              className="nav-link"
+            >
+              {text}
+            </Link>
+          ))}
         </div>
       )}
 
@@ -39,6 +45,44 @@ const Navbar = () => {
           {menuOpen ? "✖" : "☰"}
         </div>
       )}
+
+      {/* Extra CSS for Hover Animation */}
+      <style>
+        {`
+          .nav-link {
+            position: relative;
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            font-size: 16px;
+            padding: 5px 0;
+            transition: color 0.3s ease;
+          }
+
+          .nav-link::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -3px;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, #4f46e5, #7c3aed);
+            transition: width 0.4s ease;
+            border-radius: 2px;
+          }
+
+          .nav-link:hover {
+            color: #4f46e5;
+            background: linear-gradient(90deg, #4f46e5, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+          }
+
+          .nav-link:hover::after {
+            width: 100%;
+          }
+        `}
+      </style>
     </nav>
   );
 };
@@ -83,14 +127,6 @@ const styles = {
     gap: "30px",
     alignItems: "center",
     transition: "all 0.3s ease",
-  },
-  link: {
-    textDecoration: "none",
-    color: "#333",
-    fontWeight: "600",
-    fontSize: "16px",
-    position: "relative",
-    padding: "5px 0",
   },
   mobileMenu: {
     flexDirection: "column",

@@ -7,7 +7,7 @@ const Services = () => {
   const categories = [
     {
       name: "IT & Tech",
-      gradient: "linear-gradient(135deg, #4f46e5, #6366f1)",
+      gradient: "linear-gradient(135deg, #4f46e5, #6366f1)", // Deep Indigo
       services: [
         "Web Development",
         "App Development",
@@ -18,12 +18,12 @@ const Services = () => {
     },
     {
       name: "Creative & Design",
-      gradient: "linear-gradient(135deg, #ec4899, #f472b6)",
+      gradient: "linear-gradient(135deg, #7c3aed, #a78bfa)", // Violet theme
       services: ["Logo Design", "Video Editing", "UI/UX Design"],
     },
     {
       name: "Writing & Content",
-      gradient: "linear-gradient(135deg, #10b981, #34d399)",
+      gradient: "linear-gradient(135deg, #14b8a6, #2dd4bf)", // Teal to match theme
       services: [
         "Blog Writing",
         "Technical Writing",
@@ -33,7 +33,7 @@ const Services = () => {
     },
     {
       name: "Data & Analytics",
-      gradient: "linear-gradient(135deg, #f59e0b, #fbbf24)",
+      gradient: "linear-gradient(135deg, #f59e0b, #fbbf24)", // Amber tone
       services: ["Data Entry", "Data Visualization"],
     },
   ];
@@ -143,7 +143,7 @@ const Services = () => {
           ))}
         </div>
 
-        {/* Our Process - redesigned as small cards */}
+        {/* Our Process */}
         <motion.h2 style={styles.subHeading}>⚡ Our Process</motion.h2>
         <div style={styles.processGrid}>
           {processSteps.map((p, i) => (
@@ -261,8 +261,6 @@ const styles = {
     fontWeight: "500",
     fontSize: "16px",
   },
-
-  // Redesigned Process Grid
   processGrid: {
     display: "grid",
     gap: "25px",
@@ -284,7 +282,6 @@ const styles = {
     marginBottom: "8px",
     color: "#4f46e5",
   },
-
   techGrid: {
     display: "grid",
     gap: "20px",
@@ -299,6 +296,7 @@ const styles = {
     fontWeight: "600",
     border: "1px solid #ddd",
     transition: "0.3s",
+    color: "#fff",
   },
 };
 
